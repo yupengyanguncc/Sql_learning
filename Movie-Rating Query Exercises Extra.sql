@@ -17,14 +17,17 @@ SELECT title FROM Movie
 UNION
 SELECT name FROM Reviewer
 ORDER BY name, title;
-Q4 Find the titles of all movies not reviewed by Chris Jackson.
+
+-- Find the titles of all movies not reviewed by Chris Jackson.
 SELECT DISTINCT title 
 FROM Movie
-WHERE mID not it (
+WHERE mID not in (
 SELECT mID
 FROM Rating 
 INNER JOIN Reviewer Using (rID)
 WHERE name = “Chris Jackson”)
+
+
 
 --For all pairs of reviewers such that both reviewers gave a rating to the same movie, return the names of both reviewers. Eliminate duplicates, don't pair reviewers with themselves, and include each pair only once. For each pair, return the names in the pair in alphabetical order. 
 SELECT DISTINCT Re1.name, Re2.name
@@ -41,6 +44,12 @@ FROM Movie
 INNER JOIN Rating USING(mId)
 INNER JOIN Reviewer USING(rId)
 WHERE stars = (SELECT MIN(stars) FROM Rating);
+
+select distinct R1.name, R2.name
+from Reviewer R1 join Rating Rt1 join Rating Rt2 join Reviewer R2
+on R1.rID = Rt1.rID and Rt1.mID = Rt2.mID and Rt2.rID = R2.rID and R1.name < 
+R2.name
+order by R1.name;
 
 
 --List movie titles and average ratings, from highest-rated to lowest-rated. If two or more movies have the same average rating, list them in alphabetical order. 

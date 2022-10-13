@@ -28,6 +28,11 @@ FROM Movie, Rating, Reviewer
 WHERE Movie.mId = Rating.mId AND Reviewer.rId = Rating.rId
 ORDER BY name, title, stars;
 
+-- use inner join 
+select name, title, stars, ratingDate
+from Movie join Rating using (mID)  join  Reviewer using (rID)
+order by name, title, stars;
+
 --For all cases where the same reviewer rated the same movie twice and gave it a higher rating the second time, return the reviewer's name and the title of the movie.
 SELECT name, title
 FROM Movie
